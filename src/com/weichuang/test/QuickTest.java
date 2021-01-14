@@ -1,5 +1,8 @@
 package com.weichuang.test;
 
+import com.weichuang.aop.JdkFactory;
+import com.weichuang.aop.OrderService;
+import com.weichuang.aop.impl.OrderServiceImpl;
 import com.weichuang.pojo.Car;
 import com.weichuang.pojo.CollectionDemo;
 import com.weichuang.pojo.Person;
@@ -64,9 +67,11 @@ public class QuickTest {
     public void testFn4(){
         ClassPathXmlApplicationContext ac = new ClassPathXmlApplicationContext("com/weichuang/anotation/anotation.xml");
         Car car1 = (Car)ac.getBean("car");
-        Car car2 = (Car)ac.getBean("car");
-        System.out.println(car1 == car2);
+       /* Car car2 = (Car)ac.getBean("car");
+        System.out.println(car1 == car2);*/
         System.out.println(car1);
     }
+
+
 }
 

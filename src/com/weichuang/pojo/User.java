@@ -9,7 +9,7 @@ public class User implements Serializable {
 
     //构造方法
     public User(){
-        System.out.println("无参的构造方法");
+       /* System.out.println("无参的构造方法");*/
     }
 
     /**
