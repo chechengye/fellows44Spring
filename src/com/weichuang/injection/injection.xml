@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd ">
+
+
+    <!--
+        1、set方法注入 / 字段注入
+            使用<property>标签完成
+            name ： 属性的名称
+            value : 是属性的值 8种基本数据类型 + String
+           若是对象类型需要使用ref属性来注入值
+       2、构造方法注入
+            使用 <constructor-arg>标签
+            index : 标记形参的位置
+            type ： 标记形参的类型
+       注入类型：
+            1、基本数据类型
+            2、引用数据类型
+            3、表达式注入
+                注意：当使用表达式引入引用类型时，要使用value属性
+                      或者直接使用ref引入对象类型
+            4、复杂类型的注入
+
+    -->
+    <bean id="person" class="com.weichuang.pojo.Person">
+        <property name="name" value="张三"></property>
+        <property name="age" value="18"></property>
+        <property name="car" ref="car"></property>
+    </bean>
+
+    <bean name="car" class="com.weichuang.pojo.Car">
+        <constructor-arg name="name" value="霸道"></constructor-arg>
+        <constructor-arg name="color" value="白色"></constructor-arg>
+    </bean>
+
+    <bean name="p2" class="com.weichuang.pojo.Person">
+        <constructor-arg name="name" value="王五"></constructor-arg>
+        <constructor-arg name="age" value="33"></constructor-arg>
+        <constructor-arg name="car" ref="car"></constructor-arg>
+    </bean>
+
+
+    <bean name="p3" class="com.weichuang.pojo.Person">
+        <constructor-arg name="name" value="#{p2.name}" index="0" type="java.lang.String"></constructor-arg>
+        <constructor-arg name="age" value="33"></constructor-arg>
+        <!--<constructor-arg name="car" value="#{p2.car}"></constructor-arg>-->
+        <constructor-arg name="car" ref="car"></constructor-arg>
+    </bean>
+
+    <bean id="collectionDemo" class="com.weichuang.pojo.CollectionDemo">
+        <property name="arr">
+            <array>
+                <value>lucy</value>
+                <value>lily</value>
+                <value>tom</value>
+            </array>
+        </property>
+
+        <property name="list">
+            <list>
+                <value>商品1</value>
+                <value>商品2</value>
+                <ref bean="person"></ref>
+            </list>
+        </property>
+
+
+        <property name="map">
+            <map>
+                <entry key="k1" value="val1"></entry>
+                <entry key="k2" value-ref="car"></entry>
+                <entry key-ref="p2" value-ref="car"></entry>
+            </map>
+        </property>
+
+        <property name="properties">
+            <props>
+                <prop key="jdbc:url">jdbc:mysql:///fellows44</prop>
+                <prop key="jdbc:username">root</prop>
+            </props>
+        </property>
+    </bean>
+</beans>

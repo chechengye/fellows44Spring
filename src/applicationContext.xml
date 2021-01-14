@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd ">
+    <!--
+        1、正常情况下一个配置文件中同样的对象只会配置一次
+        2、class属性的内容一定是全路径/直接可以访问到的
+        3、name ： 名字通常是类名的首字母小写
+        4、属性的介绍：
+            1) name : 命名任意，在同一个bean中name值可以重复。可以使用特殊字符。但是在不同bean直接是不可重复的。name 命名支持多个以逗号分隔
+            2) id : 命名任意，在同一个bean中不允许重复。命名规范必须遵从xml文档的规范的 。id不建议使用多个名称命名
+            3) scope : 默认是单例的 。可以修改为prototype 变为多例
+            4) init-method : 初始化的方法
+            5) destroy-method : 销毁方法
+            6)class属性的内容一定是全路径/直接可以访问到的
+    -->
+    <bean name="a1,a1,b1"  class="com.weichuang.pojo.User" init-method="init" destroy-method="destroy"></bean>
+
+    <bean id="c1" class="com.weichuang.pojo.User"></bean>
+
+
+
+</beans>
