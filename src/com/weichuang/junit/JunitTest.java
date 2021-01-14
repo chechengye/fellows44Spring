@@ -1,6 +1,7 @@
 package com.weichuang.junit;
 
 
+import com.weichuang.aop.CglibFactory;
 import com.weichuang.aop.JdkFactory;
 import com.weichuang.aop.OrderService;
 import com.weichuang.aop.impl.OrderServiceImpl;
@@ -37,5 +38,19 @@ public class JunitTest {
         JdkFactory jf = new JdkFactory(os);
         OrderService pos = jf.getProxyOrderService();
         pos.addOrder();
+        System.out.println("------------");
+        System.out.println(pos instanceof OrderServiceImpl);//不是父子关系，兄弟关系接口式的动态代理
+    }
+
+    /**
+     * 测试CGLIB动态代理
+     */
+    @Test
+    public void testFn6(){
+        CglibFactory cf = new CglibFactory();
+        OrderService pos = cf.getProxyOrderService();
+        pos.updateOrderById();
+        System.out.println("------------");
+        System.out.println(pos instanceof OrderServiceImpl);//父子关系，继承式的动态代理
     }
 }
