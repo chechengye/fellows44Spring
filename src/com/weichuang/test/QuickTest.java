@@ -1,5 +1,6 @@
 package com.weichuang.test;
 
+import com.weichuang.pojo.Car;
 import com.weichuang.pojo.CollectionDemo;
 import com.weichuang.pojo.Person;
 import com.weichuang.pojo.User;
@@ -44,6 +45,28 @@ public class QuickTest {
         ApplicationContext ac = new ClassPathXmlApplicationContext("classpath:com/weichuang/injection/injection.xml");
         CollectionDemo cd = (CollectionDemo)ac.getBean("collectionDemo");
         System.out.println(cd);
+    }
+
+    /**
+     * 其它方式创建对象
+     */
+    @Test
+    public void testFn3(){
+        ClassPathXmlApplicationContext ac = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+        User fUser = (User)ac.getBean("f2_user");
+        System.out.println(fUser);
+    }
+
+    /**
+     * 测试注解
+     */
+    @Test
+    public void testFn4(){
+        ClassPathXmlApplicationContext ac = new ClassPathXmlApplicationContext("com/weichuang/anotation/anotation.xml");
+        Car car1 = (Car)ac.getBean("car");
+        Car car2 = (Car)ac.getBean("car");
+        System.out.println(car1 == car2);
+        System.out.println(car1);
     }
 }
 

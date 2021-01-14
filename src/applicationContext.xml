@@ -13,11 +13,14 @@
             4) init-method : 初始化的方法
             5) destroy-method : 销毁方法
             6)class属性的内容一定是全路径/直接可以访问到的
+            7)factory-method : 应用于静态工厂方式的创建
     -->
     <bean name="a1,a1,b1"  class="com.weichuang.pojo.User" init-method="init" destroy-method="destroy"></bean>
 
     <bean id="c1" class="com.weichuang.pojo.User"></bean>
 
+    <bean name="f_user" factory-method="createUser" class="com.weichuang.pojo.UserFactory"></bean>
 
-
+    <bean name="userFactory" class="com.weichuang.pojo.UserFactory"></bean>
+    <bean id="f2_user" factory-bean="userFactory" factory-method="createUser2"></bean>
 </beans>
