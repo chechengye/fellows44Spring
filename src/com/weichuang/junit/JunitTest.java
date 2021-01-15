@@ -53,4 +53,6 @@ public class JunitTest {
         System.out.println("------------");
         System.out.println(pos instanceof OrderServiceImpl);//父子关系，继承式的动态代理
     }
+
+
 }

@@ -9,6 +9,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void addOrder() {
         System.out.println("添加订单方法");
+        //int i = 1/0;
     }
 
     @Override
