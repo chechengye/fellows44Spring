@@ -2,8 +2,9 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd ">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
     <context:component-scan base-package="com.weichuang.tx"></context:component-scan>
     <context:property-placeholder location="db.properties"></context:property-placeholder>
     <bean name="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
@@ -33,4 +34,30 @@
         <property name="transactionManager" ref="transactionManager"></property>
     </bean>
 
+    <!--配置事务的通知对象-->
+   <tx:advice id="txAdvice">
+        <tx:attributes>
+            <tx:method name="transfer"/>
+            <tx:method name="save*"/>
+            <tx:method name="insert*"/>
+            <!--
+                isolation : 隔离级别 1 ， 2 ， 4 ，8
+                propagation : 传播行为 ， 默认使用REQUIRED
+            -->
+            <tx:method name="get*" read-only="true" propagation="REQUIRED" isolation="REPEATABLE_READ" />
+            <tx:method name="find*" read-only="true"/>
+            <tx:method name="update*"/>
+            <tx:method name="modify*"/>
+            <tx:method name="delete*"/>
+            <tx:method name="remove*"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <!--配置切入点与织入-->
+    <aop:config>
+        <aop:pointcut id="pc" expression="execution(* com.weichuang.*.service.*Service.*(..))"></aop:pointcut>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="pc"></aop:advisor>
+    </aop:config>
+    <!--开启事务注解配置-->
+    <tx:annotation-driven/>
 </beans>

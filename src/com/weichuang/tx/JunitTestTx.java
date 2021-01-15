@@ -22,11 +22,11 @@ public class JunitTestTx {
     @Autowired
     AccountService accountService;
 
-    @Autowired
-    JdbcTemplate jt;
     @Test
     public void testFn(){
-        accountService.transfer(1 , 2 , 100);
+        accountService.saveUser(1 , 2 , 100);
     }
+
+
 
 }
